@@ -29,4 +29,11 @@ public class OnboardingService {
         }
         onboardingRepository.save(employee);
     }
+
+    public void deleteEmployee(Long id) {
+        if(onboardingRepository.findById(id).isEmpty()) {
+            throw new IllegalStateException("No Employee with Id Found");
+        }
+        onboardingRepository.deleteById(id);
+    }
 }
