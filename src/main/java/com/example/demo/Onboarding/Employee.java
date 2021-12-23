@@ -1,6 +1,7 @@
 package com.example.demo.Onboarding;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table
@@ -17,9 +18,12 @@ public class Employee {
             generator = "Employee_sequence"
     )
     private Long id;
-    private String firstName, lastName, middleName, fullName;
+    private String firstName, lastName, middleName;
+    @Transient
+    private String fullName;
     private String email;
     private LocalDate DOB;
+    @Transient
     private Integer age;
 
     public Employee() {
@@ -75,6 +79,7 @@ public class Employee {
     }
 
     public String getFullName() {
+        setFullName(this.firstName, this.middleName, this.lastName);
         return fullName;
     }
 
@@ -100,11 +105,13 @@ public class Employee {
     }
 
     public Integer getAge() {
-        return age;
+        setAge(this.DOB);
+        return this.age;
     }
 
     private void setAge(LocalDate DOB) {
         // calculating age
+        int age = Period.between(this.DOB, LocalDate.now()).getYears();
         this.age = age;
     }
 
