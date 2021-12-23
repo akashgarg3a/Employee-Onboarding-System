@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Configuration
 public class OnboardingConfig {
@@ -26,7 +27,9 @@ public class OnboardingConfig {
                     "piyush.saini@gmail.com",
                     LocalDate.of(1997, 9, 29)
             );
-
+            repository.saveAll(
+                    List.of(Akash, Piyush)
+            );
         };
     }
 }
