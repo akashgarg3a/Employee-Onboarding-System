@@ -18,11 +18,11 @@ public class Employee {
             generator = "Employee_sequence"
     )
     private Long id;
-    private String firstName, lastName, middleName;
+    private String firstname, lastname, middlename;
     @Transient
-    private String fullName;
+    private String fullname;
     private String email;
-    private LocalDate DOB;
+    private LocalDate dob;
     @Transient
     private Integer age;
 
@@ -33,14 +33,14 @@ public class Employee {
         this.id = id;
     }
 
-    public Employee(String firstName, String lastName, String middleName, String email, LocalDate DOB) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
+    public Employee(String firstname, String lastname, String middlename, String email, LocalDate dob) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.middlename = middlename;
         this.email = email;
-        this.DOB = DOB;
-        setFullName(this.firstName, this.middleName, this.lastName);
-        setAge(DOB);
+        this.dob = dob;
+        setFullname(this.firstname, this.middlename, this.lastname);
+        setAge(dob);
     }
 
     public Long getId() {
@@ -52,39 +52,39 @@ public class Employee {
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-        setFullName(this.firstName, this.middleName, this.lastName);
+    public void setFirstName(String firstname) {
+        this.firstname = firstname;
+        setFullname(this.firstname, this.middlename, this.lastname);
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-        setFullName(this.firstName, this.middleName, this.lastName);
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
+        setFullname(this.firstname, this.middlename, this.lastname);
     }
 
-    public String getMiddleName() {
-        return middleName;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setMiddleName(String midleName) {
-        this.middleName = midleName;
-        setFullName(this.firstName, this.middleName, this.lastName);
+    public void setMiddlename(String midleName) {
+        this.middlename = midleName;
+        setFullname(this.firstname, this.middlename, this.lastname);
     }
 
-    public String getFullName() {
-        setFullName(this.firstName, this.middleName, this.lastName);
-        return fullName;
+    public String getFullname() {
+        setFullname(this.firstname, this.middlename, this.lastname);
+        return fullname;
     }
 
-    private void setFullName(String firstName, String middleName, String lastName) {
-        this.fullName = firstName + (middleName.length() == 0 ? "" : " ") + middleName + (lastName.length() == 0 ? "" : " ") + lastName;
+    private void setFullname(String firstname, String middlename, String lastname) {
+        this.fullname = firstname + (this.middlename.length() == 0 ? "" : " ") + this.middlename + (this.lastname.length() == 0 ? "" : " ") + this.lastname;
     }
 
     public String getEmail() {
@@ -95,23 +95,23 @@ public class Employee {
         this.email = email;
     }
 
-    public LocalDate getDOB() {
-        return DOB;
+    public LocalDate getdob() {
+        return dob;
     }
 
-    public void setDOB(LocalDate DOB) {
-        this.DOB = DOB;
-        setAge(DOB);
+    public void setdob(LocalDate dob) {
+        this.dob = dob;
+        setAge(dob);
     }
 
     public Integer getAge() {
-        setAge(this.DOB);
+        setAge(this.dob);
         return this.age;
     }
 
-    private void setAge(LocalDate DOB) {
+    private void setAge(LocalDate dob) {
         // calculating age
-        int age = Period.between(this.DOB, LocalDate.now()).getYears();
+        int age = Period.between(this.dob, LocalDate.now()).getYears();
         this.age = age;
     }
 
@@ -119,9 +119,9 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", fullName='" + fullName + '\'' +
+                ", fullname='" + fullname + '\'' +
                 ", email='" + email + '\'' +
-                ", DOB=" + DOB +
+                ", dob=" + dob +
                 ", age=" + age +
                 '}';
     }

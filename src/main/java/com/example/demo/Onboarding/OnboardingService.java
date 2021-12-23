@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OnboardingService {
@@ -18,5 +19,14 @@ public class OnboardingService {
 
     public List<Employee> getEmployees() {
         return onboardingRepository.findAll();
+    }
+
+    public void addNewEmployee(Employee employee) {
+        System.out.println(employee);
+        Optional<Employee> duplicate = onboardingRepository.findEmployeeByEmail(employee.getEmail());
+        if(duplicate.isPresent()) {
+            throw new IllegalStateException("Email already Exit");
+        }
+        onboardingRepository.save(employee);
     }
 }

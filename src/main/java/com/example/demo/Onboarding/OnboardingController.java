@@ -1,9 +1,8 @@
 package com.example.demo.Onboarding;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,10 @@ public class OnboardingController {
     @GetMapping("/AllEmployees")
     public List<Employee> AllEmployees() {
         return onboardingService.getEmployees();
+    }
+
+    @PostMapping("/NewEmployee")
+    public void addEmployee(@RequestBody Employee employee) {
+        onboardingService.addNewEmployee(employee);
     }
 }
