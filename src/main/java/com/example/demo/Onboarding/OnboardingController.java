@@ -32,4 +32,12 @@ public class OnboardingController {
     public void deleteEmployee(@PathVariable("EmployeeID") Long id) {
         onboardingService.deleteEmployee(id);
     }
+
+    @PatchMapping(path = "EmployeeId")
+    public void updateEmployee(
+            @PathVariable("EmployeeId") Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email) {
+        onboardingService.updateEmployee(id, name, email);
+    }
 }
