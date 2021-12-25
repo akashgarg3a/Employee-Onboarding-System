@@ -1,4 +1,6 @@
 package com.example.demo.Onboarding;
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
@@ -18,9 +20,15 @@ public class Employee {
             generator = "Employee_sequence"
     )
     private Long id;
-    private String firstname, lastname, middlename;
+    @Column
+    @NotNull
+    private String firstName;
+    @Column
+    private String lastName;
+    @Column
+    private String middleName;
     @Transient
-    private String fullname;
+    private String fullName;
     private String email;
     private LocalDate dob;
     @Transient
@@ -33,14 +41,12 @@ public class Employee {
         this.id = id;
     }
 
-    public Employee(String firstname, String lastname, String middlename, String email, LocalDate dob) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.middlename = middlename;
+    public Employee(String firstName, String lastName, String middleName, String email, LocalDate dob) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
         this.email = email;
         this.dob = dob;
-        setFullname(this.firstname, this.middlename, this.lastname);
-        setAge(dob);
     }
 
     public Long getId() {
@@ -52,39 +58,36 @@ public class Employee {
     }
 
     public String getFirstName() {
-        return firstname;
+        return firstName;
     }
 
-    public void setFirstName(String firstname) {
-        this.firstname = firstname;
-        setFullname(this.firstname, this.middlename, this.lastname);
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return lastname;
+        return lastName;
     }
 
-    public void setLastName(String lastname) {
-        this.lastname = lastname;
-        setFullname(this.firstname, this.middlename, this.lastname);
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMiddlename(String midleName) {
-        this.middlename = midleName;
-        setFullname(this.firstname, this.middlename, this.lastname);
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getFullname() {
-        setFullname(this.firstname, this.middlename, this.lastname);
-        return fullname;
+    public String getFullName() {
+        setFullName("");
+        return fullName;
     }
 
-    private void setFullname(String firstname, String middlename, String lastname) {
-        this.fullname = firstname + (this.middlename.length() == 0 ? "" : " ") + this.middlename + (this.lastname.length() == 0 ? "" : " ") + this.lastname;
+    public void setFullName(String fullName) {
+        this.fullName = this.firstName + (this.middleName.length() == 0 ? "" : " ") + this.middleName + (this.lastName.length() == 0 ? "" : " ") + this.lastName;
     }
 
     public String getEmail() {
@@ -95,31 +98,28 @@ public class Employee {
         this.email = email;
     }
 
-    public LocalDate getdob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setdob(LocalDate dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
-        setAge(dob);
     }
 
     public Integer getAge() {
-        setAge(this.dob);
-        return this.age;
+        setAge(0);
+        return age;
     }
 
-    private void setAge(LocalDate dob) {
-        // calculating age
-        int age = Period.between(this.dob, LocalDate.now()).getYears();
-        this.age = age;
+    public void setAge(Integer age) {
+        this.age = Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", fullname='" + fullname + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", dob=" + dob +
                 ", age=" + age +

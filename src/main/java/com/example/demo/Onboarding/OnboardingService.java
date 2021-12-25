@@ -23,7 +23,6 @@ public class OnboardingService {
     }
 
     public void addNewEmployee(Employee employee) {
-        System.out.println(employee);
         boolean duplicate = onboardingRepository.findEmailExist(employee.getEmail());
         if(duplicate) {
             throw new IllegalStateException("Email already Exit");
