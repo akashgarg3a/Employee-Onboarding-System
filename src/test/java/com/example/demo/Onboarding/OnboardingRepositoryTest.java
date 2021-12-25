@@ -34,7 +34,7 @@ class OnboardingRepositoryTest {
         underTest.save(emp);
 
         // when
-        boolean expected = underTest.findEmployeeByEmail(email).isPresent();
+        boolean expected = underTest.findEmailExist(email);
 
         // then
         assertThat(expected).isTrue();
@@ -46,7 +46,7 @@ class OnboardingRepositoryTest {
         String email = "akash.garg@gmail.com";
 
         // when
-        boolean expected = underTest.findEmployeeByEmail(email).isPresent();
+        boolean expected = underTest.findEmailExist(email);
 
         // then
         assertThat(expected).isFalse();

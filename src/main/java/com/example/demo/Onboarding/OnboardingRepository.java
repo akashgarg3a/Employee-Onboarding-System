@@ -9,6 +9,10 @@ import java.util.Optional;
 @Repository
 public interface OnboardingRepository extends JpaRepository<Employee, Long> {
 
-//    @Query("SELECT e FROM Employee e WHERE e.email = ?1")
-    Optional<Employee> findEmployeeByEmail(String email);
+    @Query("" +
+            "SELECT CASE WHEN COUNT(e) > 0 THEN " +
+            "TRUE ELSE FALSE END " +
+            "FROM Employee e " +
+            "WHERE e.email = ?1")
+    Boolean findEmailExist(String email);
 }

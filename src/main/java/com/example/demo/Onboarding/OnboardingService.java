@@ -24,8 +24,8 @@ public class OnboardingService {
 
     public void addNewEmployee(Employee employee) {
         System.out.println(employee);
-        Optional<Employee> duplicate = onboardingRepository.findEmployeeByEmail(employee.getEmail());
-        if(duplicate.isPresent()) {
+        boolean duplicate = onboardingRepository.findEmailExist(employee.getEmail());
+        if(duplicate) {
             throw new IllegalStateException("Email already Exit");
         }
         onboardingRepository.save(employee);
@@ -46,7 +46,7 @@ public class OnboardingService {
         if(firstname != null && firstname.length() > 0 && firstname != emp.getFirstName())
             emp.setFirstName(firstname);
         if(email != null && email.length() > 0) {
-            if(onboardingRepository.findEmployeeByEmail(email).isPresent())
+            if(onboardingRepository.findEmailExist(email))
                 throw new IllegalStateException("email already taken");
             emp.setEmail(email);
         }
