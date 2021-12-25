@@ -12,7 +12,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -59,6 +61,25 @@ class OnboardingServiceTest {
         Employee captureEmployee = employeeArgumentCaptor.getValue();
 
         assertThat(captureEmployee).isEqualTo(emp);
+    }
+
+    @Test
+    void checkAddNewEmployeeThrowException() {
+        // given
+        Employee emp = new Employee(
+                "Akash",
+                "Garg",
+                "",
+                "akash.garg@gmail.com",
+                LocalDate.of(1996, 11, 15)
+        );
+
+        // when
+        given(onboardingRepository.findEmailExist(emp.getEmail())).willReturn(true);
+
+        // then
+        assertThatThrownBy(() -> underTest.addNewEmployee(emp) ).isInstanceOf(IllegalStateException.class).hasMessageContaining("Email already Exit");
+
     }
 
     @Test
