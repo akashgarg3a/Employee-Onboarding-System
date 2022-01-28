@@ -8,6 +8,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,15 +21,13 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
+@DataJpaTest
 @ExtendWith(MockitoExtension.class)
 class OnboardingServiceTest {
 
     @Mock
     private OnboardingRepository onboardingRepository;
     private OnboardingService underTest;
-
-    @Mock
-    private Employee employee;
 
     @BeforeEach
     void setUp() {
